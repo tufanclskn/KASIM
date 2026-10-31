@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kasım Challenge</title>
+<style>
+:root{--bg:#f1f3f6;--card:#fff;--text:#1b2430;--muted:#6b7685;--line:#dde2e9;--accent:#2f4b6e;--done:#35607f;--rad:10px;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-p="esra"]{--bg:#fbf4f6;--card:#fff;--text:#3a2a30;--muted:#9b8189;--line:#f0dde3;--accent:#c4678a;--done:#c4678a;--rad:16px}
+@media (prefers-color-scheme:dark){
+:root:not([data-theme="light"]){--bg:#11161c;--card:#1a222b;--text:#e8edf3;--muted:#8c98a6;--line:#2b3541;--accent:#7ba5d8;--done:#4f86b8}
+:root[data-p="esra"]:not([data-theme="light"]){--bg:#1c1518;--card:#261c20;--text:#f6e9ee;--muted:#b09aa2;--line:#3d2c33;--accent:#e79ab3;--done:#c4678a}}
+:root[data-theme="dark"]{--bg:#11161c;--card:#1a222b;--text:#e8edf3;--muted:#8c98a6;--line:#2b3541;--accent:#7ba5d8;--done:#4f86b8}
+:root[data-theme="dark"][data-p="esra"]{--bg:#1c1518;--card:#261c20;--text:#f6e9ee;--muted:#b09aa2;--line:#3d2c33;--accent:#e79ab3;--done:#c4678a}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.4}
+main{max-width:480px;margin:0 auto;padding:16px 16px 40px}
+input,textarea,button{font-family:inherit;color:var(--text)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--line);padding:4px;border-radius:calc(var(--rad) + 4px);margin-bottom:18px}
+.tab{border:0;background:transparent;padding:12px;border-radius:var(--rad);font-size:16px;font-weight:600;color:var(--muted);cursor:pointer}
+.tab.on{background:var(--card);color:var(--accent);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.eyebrow{font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+input.title{width:100%;font-size:24px;font-weight:700;background:transparent;border:0;border-bottom:2px solid var(--line);padding:6px 0;margin:4px 0 16px;outline:none}
+input.title:focus{border-bottom-color:var(--accent)}
+.quote{font-size:17px;font-weight:600;line-height:1.45;padding:14px 16px;margin:6px 0 14px;border-left:4px solid var(--accent);background:var(--card);border-radius:var(--rad)}.quote small{display:block;margin-top:6px;font-size:12px;font-weight:400;color:var(--muted)}.rule{width:100%;margin-top:8px;font-size:16px;background:var(--bg);border:1px solid var(--line);border-radius:var(--rad);padding:10px;outline:none}.rule:focus{border-color:var(--accent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:14px;margin-bottom:14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:10px 6px;text-align:center}
+.stat b{display:block;font-size:22px;color:var(--accent)}
+.stat span{font-size:12px;color:var(--muted)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.lbl{font-size:14px;color:var(--muted)}
+.num{width:90px;font-size:18px;text-align:center;background:var(--bg);border:1px solid var(--line);border-radius:var(--rad);padding:8px}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:16px}
+.wd{text-align:center;font-size:12px;color:var(--muted)}
+.day{aspect-ratio:1;border-radius:var(--rad);border:1px solid var(--line);font-size:16px;font-weight:600;cursor:pointer;padding:0;
+background:color-mix(in srgb,var(--done) calc(var(--r,0)*100%),var(--card))}
+.day.full{color:#fff;background:var(--done);border-color:var(--done)}
+.day.today{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--accent)}
+.day.sel{border:2px solid var(--text)}
+.stg-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}.stg-top b{font-size:17px}.stg-top span{color:var(--accent);font-weight:700;font-size:15px}.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--done);transition:width .3s}.stg-row{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:12px}.stg-b{border:1px solid var(--line);background:var(--bg);border-radius:var(--rad);padding:6px 4px 7px;font-size:12px;color:var(--muted);cursor:pointer;text-align:center}.stg-b.on{border-color:var(--accent);color:var(--text);font-weight:600}.stg-b .bar{height:6px;margin-top:5px}
+h2{font-size:18px;margin:0 0 12px}
+h3{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:16px 0 8px}
+.chips{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.chip{border:1px solid var(--line);background:var(--bg);border-radius:var(--rad);padding:12px 0;font-size:13px;cursor:pointer}
+.chip.on{background:var(--done);border-color:var(--done);color:#fff;font-weight:600}
+.field{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-top:1px solid var(--line)}
+.field:first-of-type{border-top:0}
+.field span{font-size:13px;color:var(--muted);margin-left:6px}
+.hobby{background:var(--bg);border-radius:var(--rad);padding:12px;font-size:15px;margin-bottom:10px}
+.btn{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:var(--rad);padding:12px;font-size:15px;cursor:pointer}
+.btn.on{background:var(--done);border-color:var(--done);color:#fff;font-weight:600}
+textarea{width:100%;margin-top:10px;background:var(--bg);border:1px solid var(--line);border-radius:var(--rad);padding:10px;font-size:15px;resize:vertical;min-height:64px}
+.big{font-size:40px;font-weight:700;text-align:center;line-height:1.1;color:var(--accent)}
+.sub{text-align:center;color:var(--muted);font-size:13px;margin:4px 0 10px}
+.srow{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:15px}
+.srow span{color:var(--muted)}
+.notes{font-size:14px;margin-top:8px}.notes p{margin:6px 0}
+.reset{display:block;margin:6px auto 0;background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;cursor:pointer}
+</style>
+</head>
+<body>
+<main>
+  <div class="tabs" role="tablist">
+    <button class="tab" data-p="tufan" role="tab">Tufan</button>
+    <button class="tab" data-p="esra" role="tab">Esra</button>
+  </div>
+  <div class="eyebrow">Kasım 2026 · 30 gün</div>
+  <div class="quote" id="quote"></div>
+  
+
+  <div class="stats">
+    <div class="stat"><b id="sFull">0</b><span>tam gün</span></div>
+    <div class="stat"><b id="sStreak">0</b><span>seri</span></div>
+    <div class="stat"><b id="sKilo">–</b><span>kilo farkı</span></div>
+  </div>
+
+  <div class="card row">
+    <span class="lbl">Başlangıç kilosu (kg)</span>
+    <input class="num" id="startW" type="text" inputmode="decimal" placeholder="0.0">
+  </div>
+
+  <div class="card" id="stage"></div>
+  <div class="grid" id="grid"></div>
+  <div class="card" id="detail"></div>
+  <div class="card" id="summary"></div>
+  <button class="reset" id="reset">Bu profilin verilerini sıfırla</button>
+</main>
+<script>
+var PROF={tufan:"Tufan’ın",esra:"Esra’nın"};
+var cur="tufan";
+try{var lp=localStorage.getItem("kasim-2026-last");if(lp==="esra"||lp==="tufan")cur=lp}catch(e){}
+var P=["Sabah","Öğle","İkindi","Akşam","Yatsı"];
+var H=["Yeni bir beceri için 20 dk öğretici izle","Günlük tut: bugünü 5 cümleyle yaz","Bir peygamber kıssasını araştır, notlar al","Yeni bir yemek tarifi dene","Bir belgesel izle, 3 şey not et","Bir ayeti veya sözü güzel el yazısıyla yaz","Yaşadığın şehrin tarihini araştır","15 dakika çizim yap veya karala","5 yeni yabancı kelime öğren","Bir esma-i hüsnayı anlamıyla öğren","Bir bitkiye bak ya da yeni bir tane dik","Eski fotoğraflara bak, bir hatıra yaz","Bir podcast bölümü dinle","Bir bilim konusu araştır (uzay, beden, doğa)","Bir çekmeceyi veya rafı düzenle","İlham veren bir tarihî kişiyi araştır","Kısa bir dua öğren, anlamını düşün","Örgü, origami veya el işi dene","Haftalık bütçe planı yap","Daha önce dinlemediğin bir müzik türünü keşfet","Dışarıda güzel bir kare fotoğrafla","Uzun bir makale oku ve 3 cümleyle özetle","Kısa bir hikâye yaz","Sevdiğin birine içten bir mesaj yaz","Bir zeka sorusu veya satranç problemi çöz","Hiç bilmediğin bir ülkeyi haritada keşfet","Bir hadis-i şerif öğren ve üzerine düşün","Yeni bir yürüyüş rotası keşfet","Bu ay okuduklarından en iyi 3 alıntıyı yaz","Aylık değerlendirme: bu ay ne öğrendim?"];
+var state={title:"",start:"",days:{}};
+function key(){return "kasim-2026-"+cur}
+function load(){state={title:"",start:"",days:{}};try{var s=localStorage.getItem(key());if(s){var p=JSON.parse(s);if(p&&p.days)state=p}}catch(e){}}
+function save(){try{localStorage.setItem(key(),JSON.stringify(state))}catch(e){}}
+function get(n){return state.days[n]||null}
+function mk(n){return state.days[n]||(state.days[n]={p:[0,0,0,0,0],e:"",b:"",q:"",w:"",k:"",h:0,note:""});}
+function pos(v){return parseFloat(String(v).replace(",","."))>0}
+function num(v){var x=parseFloat(String(v).replace(",","."));return isNaN(x)?null:x}
+function score(n){var d=get(n);if(!d)return 0;var c=0;d.p.forEach(function(x){if(x)c++});
+  if(pos(d.b))c++;if(pos(d.q))c++;if(pos(d.w))c++;if(pos(d.e))c++;if(d.h)c++;return c/10}
+var now=new Date();
+var todayN=(now.getFullYear()===2026&&now.getMonth()===10)?now.getDate():(now<new Date(2026,10,1)?0:31);
+var sel=Math.min(30,Math.max(1,todayN));
+var wds=["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"];
+var grid=document.getElementById("grid"),btns=[];
+wds.forEach(function(w){var d=document.createElement("div");d.className="wd";d.textContent=w;grid.appendChild(d)});
+for(var i=0;i<6;i++)grid.appendChild(document.createElement("div"));
+for(var n=1;n<=30;n++){(function(n){var b=document.createElement("button");b.className="day";b.textContent=n;
+  if(n===todayN)b.classList.add("today");
+  b.addEventListener("click",function(){sel=n;renderDetail();renderTop()});
+  grid.appendChild(b);btns[n]=b})(n)}
+
+function renderTop(){
+  var full=0;
+  for(var n=1;n<=30;n++){var r=score(n);btns[n].style.setProperty("--r",r);
+    btns[n].classList.toggle("full",r===1);btns[n].classList.toggle("sel",n===sel);if(r===1)full++}
+  var end=todayN>30?30:todayN,k=end;if(k>0&&score(k)<1)k--;
+  var st=0;while(k>=1&&score(k)===1){st++;k--}
+  document.getElementById("sFull").textContent=full;
+  document.getElementById("sStreak").textContent=st;
+  var last=null;for(var m=30;m>=1;m--){var d=get(m);if(d&&num(d.k)!==null){last=num(d.k);break}}
+  var s0=num(state.start),el=document.getElementById("sKilo");
+  if(last!==null&&s0!==null){var df=Math.round((last-s0)*10)/10;el.textContent=(df>0?"+":"")+df}else el.textContent="–";
+  renderSummary(full);renderStage();renderQuote();
+}
+function renderStage(){
+  var si=Math.floor((sel-1)/5),a=si*5+1,t=0,n;
+  for(n=a;n<a+5;n++)t+=score(n);
+  var done=Math.round(t/5*100),left=100-done,segs="";
+  for(var i=0;i<6;i++){var s=0;for(n=i*5+1;n<=i*5+5;n++)s+=score(n);
+    segs+='<button class="stg-b'+(i===si?' on':'')+'" data-s="'+i+'" aria-label="'+(i+1)+'. hedef">'+(i+1)+'<div class="bar"><i style="width:'+Math.round(s/5*100)+'%"></i></div></button>'}
+  var el=document.getElementById("stage");
+  el.innerHTML='<div class="stg-top"><b>'+(si+1)+'. Hedef · '+a+'–'+(a+4)+' Kasım</b><span>'+(left>0?'%'+left+' kaldı':'Tamam 🎉')+'</span></div><div class="bar"><i style="width:'+done+'%"></i></div><div class="stg-row">'+segs+'</div>';
+  el.querySelectorAll(".stg-b").forEach(function(b){b.addEventListener("click",function(){sel=+b.dataset.s*5+1;renderDetail();renderTop()})});
+}
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+function renderSummary(full){
+  var pr=0,es=0,bk=0,qr=0,wk=0,hb=0,best=0,run=0,tot=0,notes=[],w1=num(state.start),w2=null;
+  for(var n=1;n<=30;n++){var d=get(n);
+    if(d){d.p.forEach(function(x){if(x)pr++});bk+=num(d.b)||0;es+=num(d.e)||0;qr+=num(d.q)||0;wk+=num(d.w)||0;if(d.h)hb++;
+      if(d.note&&d.note.trim())notes.push('<p><b>'+n+' Kasım:</b> '+esc(d.note.trim())+'</p>');
+      var kk=num(d.k);if(kk!==null){if(w1===null)w1=kk;w2=kk}}
+    var sc=score(n);tot+=sc*10;if(sc===1){run++;if(run>best)best=run}else run=0}
+  var pct=Math.round(tot/300*100),over=todayN>30,fin=over||(todayN===30);
+  var msg=pct>=90?'Muhteşem bir ay! 🏆':pct>=70?'Çok iyi gittin 🌟':pct>=40?'Güzel bir başlangıç, devam 💪':'Yeni bir ay, yeni bir fırsat 🌱';
+  var kilo='–';if(w1!==null&&w2!==null){var df=Math.round((w2-w1)*10)/10;kilo=w1+' → '+w2+' kg ('+(df>0?'+':'')+df+')'}
+  var h=Math.floor(bk/60),m=Math.round(bk%60);
+  function r(a,b){return '<div class="srow"><span>'+a+'</span><b>'+b+'</b></div>'}
+  document.getElementById('summary').innerHTML='<h2>'+PROF[cur]+(over?' ay sonu sonucu':' ay özeti (şimdiye kadar)')+'</h2>'+
+   '<div class="big">%'+pct+'</div><div class="sub">tüm hedeflerin tamamlanma oranı</div>'+
+   (fin?'<div class="sub" style="color:var(--text);font-weight:600">'+msg+'</div>':'')+
+   r('🕌 Namaz',pr+' / 150')+r('📖 Kitap',(h?h+' sa ':'')+m+' dk')+r('🌙 Kuran',qr+' sayfa')+r('🧘 Esneme',es+' dk')+r('🚶 Yürüyüş',wk+' dk')+
+   r('🎨 Hobi / araştırma',hb+' gün')+r('✅ Tam gün',full+' / 30')+r('🔥 En uzun seri',best+' gün')+r('⚖️ Kilo',kilo)+
+   (notes.length?'<h3>Notlarım</h3><div class="notes">'+notes.join('')+'</div>':'');
+}
+function renderDetail(){
+  var d=get(sel)||{p:[0,0,0,0,0],e:"",b:"",q:"",w:"",k:"",h:0,note:""};if(d.e===undefined)d.e="";
+  var box=document.getElementById("detail");
+  var chips=P.map(function(x,i){return '<button class="chip'+(d.p[i]?' on':'')+'" data-i="'+i+'">'+x+'</button>'}).join("");
+  box.innerHTML='<h2>'+sel+' Kasım'+(sel===todayN?' · bugün':'')+'</h2>'+
+  '<h3>Namaz (5 vakit)</h3><div class="chips">'+chips+'</div>'+
+  '<h3>Günlük hedefler</h3>'+
+  '<div class="field"><label for="fe">🧘 Sabah esneme</label><div><input class="num" id="fe" type="text" inputmode="decimal" placeholder="0"><span>dk</span></div></div>'+
+  '<div class="field"><label for="fb">📖 Kitap okuma</label><div><input class="num" id="fb" type="text" inputmode="decimal" placeholder="0"><span>dk</span></div></div>'+
+  '<div class="field"><label for="fq">🌙 Kuran okuma</label><div><input class="num" id="fq" type="text" inputmode="decimal" placeholder="0"><span>sayfa</span></div></div>'+
+  '<div class="field"><label for="fw">🚶 Yürüyüş</label><div><input class="num" id="fw" type="text" inputmode="decimal" placeholder="0"><span>dk</span></div></div>'+
+  '<div class="field"><label for="fk">⚖️ Kilo (isteğe bağlı)</label><div><input class="num" id="fk" type="text" inputmode="decimal" placeholder="0.0"><span>kg</span></div></div>'+
+  '<h3>Günün hobi / araştırma önerisi</h3><div class="hobby">'+H[sel-1]+'</div>'+
+  '<button class="btn'+(d.h?' on':'')+'" id="fh">'+(d.h?'✓ Yaptım':'Yaptım')+'</button>'+
+  '<textarea id="fn" placeholder="Not veya öğrendiklerin…"></textarea>';
+  ["e","b","q","w","k"].forEach(function(f){var el=document.getElementById("f"+f);el.value=d[f];
+    el.addEventListener("input",function(){mk(sel)[f]=el.value;save();renderTop()})});
+  var fn=document.getElementById("fn");fn.value=d.note;
+  fn.addEventListener("input",function(){mk(sel).note=fn.value;save();renderTop()});
+  box.querySelectorAll(".chip").forEach(function(c){c.addEventListener("click",function(){
+    var i=+c.dataset.i,dd=mk(sel);dd.p[i]=dd.p[i]?0:1;c.classList.toggle("on",!!dd.p[i]);save();renderTop()})});
+  var fh=document.getElementById("fh");
+  fh.addEventListener("click",function(){var dd=mk(sel);dd.h=dd.h?0:1;fh.classList.toggle("on",!!dd.h);fh.textContent=dd.h?"✓ Yaptım":"Yaptım";save();renderTop()});
+}
+var Q=["Büyük değişimler, küçük ve düzenli adımlarla başlar.","Bugün yaptığın küçük şey, yarının alışkanlığıdır.","Mükemmel olmak zorunda değilsin, sadece devam etmek zorundasın.","Başlamak, yolun yarısıdır.","Disiplin, ne hissettiğinden bağımsız olarak yapmaktır.","Her sabah yeni bir sayfa, her gün yeni bir fırsat.","Sabır ve süreklilik, en güçlü iki silahındır.","Dünkünden bir adım ileride ol, yeter.","Zor olan başlamaktır; gerisi akar gider.","Niyetin temiz, adımların düzenli olsun.","Yorulduysan dinlen, ama vazgeçme.","Kendine verdiğin sözü tutmak, en büyük güvendir.","Ertelediğin her gün, hedefini biraz daha uzaklaştırır.","Yolun yarısındasın; en güzel kısım şimdi.","Küçük ilerlemeler de ilerlemedir.","Bugünün emeği, yarının huzurudur.","İstikrar, motivasyonun bittiği yerde başlar.","Kendini başkalarıyla değil, dünkü kendinle kıyasla.","Düştüysen kalk, silkelen, devam et.","Alışkanlıklar seni inşa eder; onları dikkatle seç.","Az ama sürekli olan, çok ama kesintili olandan iyidir.","Son düzlüğe yaklaşıyorsun, tempoyu koru.","Bugün de kendine iyi bir yatırım yap.","Zorlandığın an, geliştiğin andır.","Son beş gün kala azmini topla!","Sonuna yaklaştın, şimdi pes etmek yok.","Tamamlanan her gün, kendine verdiğin bir hediyedir.","Bir ay önce hayal ettiğin kişiye dönüşüyorsun.","Bir gün kaldı; bitiş çizgisini gör.","Başardın! Bu ay senin disiplininin kanıtı."];
+function renderQuote(){var qd=sel;document.getElementById("quote").innerHTML=esc(Q[qd-1])+'<small>Günün sözü · '+qd+' Kasım</small>'}
+
+var sw=document.getElementById("startW");
+
+sw.addEventListener("input",function(){state.start=sw.value;save();renderTop()});
+var tabs=document.querySelectorAll(".tab");
+function setProfile(p){
+  cur=p;try{localStorage.setItem("kasim-2026-last",p)}catch(e){}
+  document.documentElement.setAttribute("data-p",p);
+  tabs.forEach(function(t){var on=t.dataset.p===p;t.classList.toggle("on",on);t.setAttribute("aria-selected",on)});
+  load();sw.value=state.start||"";
+  sel=Math.min(30,Math.max(1,todayN));
+  renderDetail();renderTop();
+}
+tabs.forEach(function(t){t.addEventListener("click",function(){setProfile(t.dataset.p)})});
+var rb=document.getElementById("reset"),armed=false,tm;
+rb.addEventListener("click",function(){
+  if(!armed){armed=true;rb.textContent="Emin misin? Tekrar dokun";tm=setTimeout(function(){armed=false;rb.textContent="Bu profilin verilerini sıfırla"},3000);return}
+  clearTimeout(tm);armed=false;rb.textContent="Bu profilin verilerini sıfırla";state={start:"",days:{}};sw.value="";save();renderDetail();renderTop()});
+setProfile(cur);
+</script>
+</body>
+</html>
